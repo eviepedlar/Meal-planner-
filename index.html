@@ -3,60 +3,64 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Meal Plan" />
-<meta name="theme-color" content="#1c3530" />
+<meta name="theme-color" content="#7aad8e" />
 <link rel="manifest" href="/manifest.json" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap">
 
 <style>
   :root {
-    --bg: #edf4f0;
-    --surface: #fdfaf7;
-    --surface2: #f0ebe3;
-    --forest: #1c3530;
-    --sage: #4a8a6e;
-    --sage-light: #c8e0d4;
-    --amber: #c9703a;
-    --amber-light: #f5e0d0;
-    --text: #1c3530;
-    --text-muted: #6a8a80;
-    --border: #d4e4dc;
-    --prep-bg: #e8f4ee;
-    --prep-text: #2d6a4a;
+    --bg: #f2f8f4;
+    --surface: #ffffff;
+    --surface2: #eaf3ee;
+    --sage: #7aad8e;
+    --sage-dark: #4d8c65;
+    --sage-light: #d4ecdd;
+    --accent: #5a9a72;
+    --amber: #c97c3a;
+    --amber-light: #fbeede;
+    --text: #1e3228;
+    --text-muted: #6a8a78;
+    --border: #cde3d5;
+    --header-h: 60px;
+    --nav-h: 44px;
   }
-  :root:not([data-theme="light"]) {
-    @media (prefers-color-scheme: dark) {
-      --bg: #111f1c;
-      --surface: #1a2e28;
-      --surface2: #243830;
-      --forest: #d4ede0;
-      --sage: #6ab892;
-      --sage-light: #1f3d30;
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121d16;
+      --surface: #1a2b20;
+      --surface2: #1f3327;
+      --sage: #6ab882;
+      --sage-dark: #8dd4a4;
+      --sage-light: #1e3828;
+      --accent: #6ab882;
       --amber: #e08a50;
-      --amber-light: #2d1f14;
+      --amber-light: #2d1f10;
+      --text: #d8eed e;
       --text: #d4ede0;
       --text-muted: #7aaa90;
-      --border: #2a4038;
-      --prep-bg: #1a3528;
-      --prep-text: #7ad4a0;
+      --border: #2a4034;
     }
   }
+
   :root[data-theme="dark"] {
-    --bg: #111f1c;
-    --surface: #1a2e28;
-    --surface2: #243830;
-    --forest: #d4ede0;
-    --sage: #6ab892;
-    --sage-light: #1f3d30;
+    --bg: #121d16;
+    --surface: #1a2b20;
+    --surface2: #1f3327;
+    --sage: #6ab882;
+    --sage-dark: #8dd4a4;
+    --sage-light: #1e3828;
+    --accent: #6ab882;
     --amber: #e08a50;
-    --amber-light: #2d1f14;
+    --amber-light: #2d1f10;
     --text: #d4ede0;
     --text-muted: #7aaa90;
-    --border: #2a4038;
-    --prep-bg: #1a3528;
-    --prep-text: #7ad4a0;
+    --border: #2a4034;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
 
   body {
     font-family: 'DM Sans', system-ui, sans-serif;
@@ -64,56 +68,55 @@
     color: var(--text);
     font-size: 15px;
     line-height: 1.5;
-    padding-inline: 16px;
-    padding-block: 0;
     min-height: 100%;
   }
 
-  /* Header */
+  /* ── Header ── */
   .app-header {
     position: sticky;
     top: env(safe-area-inset-top, 0px);
-    background: var(--forest);
-    margin-inline: -16px;
-    padding: 14px 20px 12px;
+    height: var(--header-h);
+    background: var(--sage);
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     z-index: 30;
   }
   .app-header h1 {
     font-family: 'DM Serif Display', Georgia, serif;
-    font-size: 22px;
+    font-size: 20px;
     color: #fff;
-    letter-spacing: -0.3px;
+    line-height: 1.1;
   }
   .app-header p {
-    font-size: 12px;
-    color: var(--sage-light);
-    margin-top: 1px;
-    font-weight: 400;
-    opacity: 0.85;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.8);
+    margin-top: 2px;
   }
 
-  /* Tab nav */
+  /* ── Tab nav ── */
   .tab-nav {
     position: sticky;
-    top: calc(env(safe-area-inset-top, 0px) + 62px);
+    top: calc(env(safe-area-inset-top, 0px) + var(--header-h));
+    height: var(--nav-h);
     background: var(--surface);
-    margin-inline: -16px;
-    padding-inline: 16px;
+    border-bottom: 1.5px solid var(--border);
     display: flex;
-    gap: 0;
-    border-bottom: 2px solid var(--border);
-    z-index: 20;
     overflow-x: auto;
     scrollbar-width: none;
+    z-index: 20;
   }
   .tab-nav::-webkit-scrollbar { display: none; }
+
   .tab-btn {
-    flex-shrink: 0;
-    padding: 11px 14px;
+    flex: 1;
+    min-width: 52px;
+    padding: 0 4px;
     background: none;
     border: none;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -2px;
+    border-bottom: 2.5px solid transparent;
+    margin-bottom: -1.5px;
     color: var(--text-muted);
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
@@ -123,36 +126,77 @@
     transition: color 0.15s, border-color 0.15s;
   }
   .tab-btn.active {
-    color: var(--sage);
-    border-bottom-color: var(--sage);
+    color: var(--accent);
+    border-bottom-color: var(--accent);
     font-weight: 600;
   }
   .tab-btn.shop-tab { color: var(--amber); }
   .tab-btn.shop-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
 
-  /* Page */
-  .page { display: none; padding-block: 20px; }
+  /* ── Page content ── */
+  .page { display: none; padding: 18px 16px 32px; }
   .page.active { display: block; }
 
-  /* Prep banner */
-  .prep-banner {
-    background: var(--prep-bg);
+  /* ── Budget banner ── */
+  .budget-banner {
+    background: var(--sage-light);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 10px 14px;
-    margin-bottom: 16px;
-    font-size: 12.5px;
-    color: var(--prep-text);
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: var(--sage-dark);
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── Prep banner ── */
+  .prep-banner {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: var(--text-muted);
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    line-height: 1.4;
+    line-height: 1.45;
   }
   .prep-banner .icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
 
-  /* Meal card */
-  .meal-section { margin-bottom: 14px; }
+  /* ── Day totals ── */
+  .day-totals {
+    background: var(--sage);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    gap: 0;
+    margin-bottom: 16px;
+  }
+  .total-item { flex: 1; text-align: center; }
+  .total-item + .total-item { border-left: 1px solid rgba(255,255,255,0.25); }
+  .total-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .total-label {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 3px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Meal section ── */
+  .meal-section { margin-bottom: 12px; }
   .meal-label {
     font-size: 10.5px;
     font-weight: 600;
@@ -164,9 +208,9 @@
     align-items: center;
     gap: 6px;
   }
-  .meal-label .prep-tag {
-    background: var(--prep-bg);
-    color: var(--prep-text);
+  .prep-tag {
+    background: var(--sage-light);
+    color: var(--sage-dark);
     font-size: 9px;
     padding: 1px 6px;
     border-radius: 99px;
@@ -178,71 +222,68 @@
   .meal-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 12px;
     overflow: hidden;
   }
   .meal-card-header {
-    padding: 14px 16px 12px;
+    padding: 13px 14px 11px;
     cursor: pointer;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 10px;
+    -webkit-tap-highlight-color: transparent;
   }
+  .meal-card-header:active { background: var(--surface2); }
+
   .meal-name {
     font-family: 'DM Serif Display', Georgia, serif;
-    font-size: 18px;
+    font-size: 17px;
     color: var(--text);
-    line-height: 1.2;
-    text-wrap: balance;
+    line-height: 1.25;
   }
   .meal-meta {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     margin-top: 6px;
     flex-wrap: wrap;
   }
   .macro-chip {
     display: inline-flex;
     align-items: center;
-    gap: 3px;
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 600;
     padding: 2px 8px;
     border-radius: 99px;
   }
-  .macro-chip.protein {
-    background: var(--amber-light);
-    color: var(--amber);
-  }
-  .macro-chip.kcal {
-    background: var(--sage-light);
-    color: var(--sage);
-  }
+  .macro-chip.protein { background: var(--amber-light); color: var(--amber); }
+  .macro-chip.kcal { background: var(--sage-light); color: var(--sage-dark); }
+
   .expand-chevron {
     flex-shrink: 0;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background: var(--bg);
+    background: var(--surface2);
     border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
-    font-size: 12px;
+    font-size: 13px;
     transition: transform 0.2s;
-    margin-top: 2px;
+    margin-top: 1px;
   }
   .meal-card.open .expand-chevron { transform: rotate(180deg); }
 
   .meal-ingredients {
     display: none;
     border-top: 1px solid var(--border);
-    padding: 12px 16px 14px;
+    padding: 12px 14px 14px;
     background: var(--surface2);
   }
   .meal-card.open .meal-ingredients { display: block; }
+
   .ingredients-title {
     font-size: 10.5px;
     font-weight: 600;
@@ -255,82 +296,69 @@
     display: flex;
     align-items: baseline;
     gap: 8px;
-    padding: 4px 0;
+    padding: 5px 0;
     border-bottom: 1px solid var(--border);
-    font-size: 14px;
+    font-size: 13.5px;
   }
   .ingredient-row:last-child { border-bottom: none; }
   .ingredient-qty {
     font-size: 12px;
     font-weight: 600;
-    color: var(--sage);
-    min-width: 52px;
+    color: var(--accent);
+    min-width: 56px;
     flex-shrink: 0;
     font-variant-numeric: tabular-nums;
   }
-  .ingredient-name { color: var(--text); }
+  .ingredient-name { color: var(--text); flex: 1; }
   .ingredient-note {
-    font-size: 11.5px;
+    font-size: 11px;
     color: var(--text-muted);
-    margin-left: auto;
     flex-shrink: 0;
   }
   .gut-tag {
     font-size: 10px;
     background: var(--sage-light);
-    color: var(--sage);
+    color: var(--sage-dark);
     padding: 1px 5px;
     border-radius: 4px;
     font-weight: 600;
     flex-shrink: 0;
   }
 
-  /* Day totals */
-  .day-totals {
-    background: var(--forest);
-    border-radius: 12px;
-    padding: 14px 16px;
+  /* ── Shopping list ── */
+  .shop-header {
     display: flex;
-    gap: 24px;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 12px;
   }
-  .total-item { }
-  .total-val {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: #fff;
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-  }
-  .total-label {
-    font-size: 11px;
-    color: rgba(255,255,255,0.55);
-    margin-top: 2px;
-    font-weight: 500;
-  }
-  .total-divider {
-    width: 1px;
-    background: rgba(255,255,255,0.15);
-    align-self: stretch;
-  }
-
-  /* Shopping list */
   .shop-intro {
     font-size: 13px;
     color: var(--text-muted);
-    margin-bottom: 16px;
-    line-height: 1.5;
+    flex: 1;
+    line-height: 1.45;
   }
-  .shop-category {
-    margin-bottom: 18px;
+  .shop-reset {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
+  .shop-category { margin-bottom: 20px; }
   .shop-cat-title {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--text-muted);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     padding-bottom: 6px;
     border-bottom: 1px solid var(--border);
   }
@@ -338,15 +366,16 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 0;
+    padding: 9px 0;
     border-bottom: 1px solid var(--border);
     cursor: pointer;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
   .shop-item:last-child { border-bottom: none; }
   .shop-checkbox {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border: 2px solid var(--border);
     border-radius: 5px;
     flex-shrink: 0;
@@ -362,7 +391,7 @@
   }
   .shop-item.checked .shop-checkbox::after {
     content: '';
-    width: 9px;
+    width: 10px;
     height: 6px;
     border-left: 2px solid white;
     border-bottom: 2px solid white;
@@ -373,7 +402,6 @@
     font-size: 14px;
     color: var(--text);
     flex: 1;
-    line-height: 1.3;
   }
   .shop-item.checked .shop-item-text {
     text-decoration: line-through;
@@ -385,47 +413,33 @@
     color: var(--text-muted);
     flex-shrink: 0;
   }
-  .shop-reset {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--text-muted);
-    cursor: pointer;
-    margin-bottom: 20px;
-    width: 100%;
-  }
 </style>
 
 <div class="app-header">
   <h1>Evie's Meal Plan</h1>
-  <p>High protein · Gut friendly · Asda ingredients</p>
+  <p>High protein · Gut friendly · Asda · ~£40/week</p>
 </div>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('mon')">Mon</button>
-  <button class="tab-btn" onclick="switchTab('tue')">Tue</button>
-  <button class="tab-btn" onclick="switchTab('wed')">Wed</button>
-  <button class="tab-btn" onclick="switchTab('thu')">Thu</button>
-  <button class="tab-btn" onclick="switchTab('fri')">Fri</button>
-  <button class="tab-btn shop-tab" onclick="switchTab('shop')">🛒 Shopping</button>
+  <button class="tab-btn active" onclick="switchTab('mon',this)">Mon</button>
+  <button class="tab-btn" onclick="switchTab('tue',this)">Tue</button>
+  <button class="tab-btn" onclick="switchTab('wed',this)">Wed</button>
+  <button class="tab-btn" onclick="switchTab('thu',this)">Thu</button>
+  <button class="tab-btn" onclick="switchTab('fri',this)">Fri</button>
+  <button class="tab-btn shop-tab" onclick="switchTab('shop',this)">🛒 List</button>
 </nav>
 
 <!-- MONDAY -->
 <div id="tab-mon" class="page active">
   <div class="prep-banner">
     <span class="icon">🥣</span>
-    <span><strong>Meal prep Sunday evening:</strong> Make overnight oats + egg muffins for the whole week. Batch cook chicken & quinoa for Mon–Tue lunches.</span>
+    <span><strong>Prep Sunday evening:</strong> Make overnight oats + egg muffins for the week. Batch cook chicken & quinoa for Mon–Tue lunches.</span>
   </div>
 
   <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,220</div><div class="total-label">calories</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">~105g</div><div class="total-label">protein</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">gut score</div></div>
+    <div class="total-item"><div class="total-val">~1,220</div><div class="total-label">Calories</div></div>
+    <div class="total-item"><div class="total-val">~105g</div><div class="total-label">Protein</div></div>
+    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
   </div>
 
   <div class="meal-section">
@@ -447,8 +461,8 @@
         <div class="ingredient-row"><span class="ingredient-qty">120g</span><span class="ingredient-name">Rolled oats</span><span class="gut-tag">prebiotic</span></div>
         <div class="ingredient-row"><span class="ingredient-qty">3 tbsp</span><span class="ingredient-name">Chia seeds</span><span class="gut-tag">fibre</span></div>
         <div class="ingredient-row"><span class="ingredient-qty">3 tsp</span><span class="ingredient-name">Honey</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">90g</span><span class="ingredient-name">Blueberries</span><span class="ingredient-note">30g per serving</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">180ml</span><span class="ingredient-name">Skimmed milk or oat milk</span></div>
+        <div class="ingredient-row"><span class="ingredient-qty">90g</span><span class="ingredient-name">Blueberries</span><span class="ingredient-note">30g per jar</span></div>
+        <div class="ingredient-row"><span class="ingredient-qty">180ml</span><span class="ingredient-name">Skimmed or oat milk</span></div>
       </div>
     </div>
   </div>
@@ -509,11 +523,9 @@
 <!-- TUESDAY -->
 <div id="tab-tue" class="page">
   <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,130</div><div class="total-label">calories</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">~104g</div><div class="total-label">protein</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">gut score</div></div>
+    <div class="total-item"><div class="total-val">~1,130</div><div class="total-label">Calories</div></div>
+    <div class="total-item"><div class="total-val">~104g</div><div class="total-label">Protein</div></div>
+    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
   </div>
 
   <div class="meal-section">
@@ -536,7 +548,7 @@
         <div class="ingredient-row"><span class="ingredient-qty">60g</span><span class="ingredient-name">Feta cheese, crumbled</span><span class="gut-tag">probiotic</span></div>
         <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Red pepper, diced</span></div>
         <div class="ingredient-row"><span class="ingredient-qty">¼ tsp</span><span class="ingredient-name">Black pepper</span></div>
-        <div class="ingredient-note" style="font-size:12px;color:var(--text-muted);padding-top:4px;">Bake at 180°C for 18 min in a silicone muffin tray</div>
+        <div class="ingredient-row"><span class="ingredient-qty" style="min-width:0;flex:1;color:var(--text-muted);font-weight:400;font-size:12px;" colspan="3">Bake at 180°C for 18 min in a silicone muffin tray</span></div>
       </div>
     </div>
   </div>
@@ -556,7 +568,7 @@
       </div>
       <div class="meal-ingredients">
         <div class="ingredients-title">Same batch as Monday — already made ✓</div>
-        <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take from fridge, eat cold or microwave 2 min</span></div>
+        <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take from fridge, microwave 2 min</span></div>
       </div>
     </div>
   </div>
@@ -592,11 +604,9 @@
 <!-- WEDNESDAY -->
 <div id="tab-wed" class="page">
   <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,100</div><div class="total-label">calories</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">~105g</div><div class="total-label">protein</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">gut score</div></div>
+    <div class="total-item"><div class="total-val">~1,100</div><div class="total-label">Calories</div></div>
+    <div class="total-item"><div class="total-val">~105g</div><div class="total-label">Protein</div></div>
+    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
   </div>
 
   <div class="meal-section">
@@ -674,11 +684,9 @@
 <!-- THURSDAY -->
 <div id="tab-thu" class="page">
   <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,100</div><div class="total-label">calories</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">~104g</div><div class="total-label">protein</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">gut score</div></div>
+    <div class="total-item"><div class="total-val">~1,100</div><div class="total-label">Calories</div></div>
+    <div class="total-item"><div class="total-val">~104g</div><div class="total-label">Protein</div></div>
+    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
   </div>
 
   <div class="meal-section">
@@ -752,11 +760,9 @@
 <!-- FRIDAY -->
 <div id="tab-fri" class="page">
   <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,050</div><div class="total-label">calories</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">~95g</div><div class="total-label">protein</div></div>
-    <div class="total-divider"></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">gut score</div></div>
+    <div class="total-item"><div class="total-val">~1,050</div><div class="total-label">Calories</div></div>
+    <div class="total-item"><div class="total-val">~95g</div><div class="total-label">Protein</div></div>
+    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
   </div>
 
   <div class="meal-section">
@@ -836,8 +842,10 @@
 
 <!-- SHOPPING LIST -->
 <div id="tab-shop" class="page">
-  <p class="shop-intro">Everything you need for the week from <strong>Asda</strong>. Tap items to check them off as you shop.</p>
-  <button class="shop-reset" onclick="resetShop()">Clear all checks</button>
+  <div class="shop-header">
+    <p class="shop-intro">Everything for the week from <strong>Asda</strong>. Est. <strong>~£38–40</strong>.</p>
+    <button class="shop-reset" onclick="resetShop()">Clear all</button>
+  </div>
 
   <div class="shop-category">
     <div class="shop-cat-title">🥩 Protein</div>
@@ -874,7 +882,7 @@
     <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Tenderstem broccoli</div><div class="shop-item-qty">2 packs</div></div>
     <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Pak choi</div><div class="shop-item-qty">2 heads</div></div>
     <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Courgette</div><div class="shop-item-qty">2</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Baby spinach</div><div class="shop-item-qty">large bag 200g</div></div>
+    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Baby spinach</div><div class="shop-item-qty">200g bag</div></div>
     <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Cucumber</div><div class="shop-item-qty">1½</div></div>
     <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Red pepper</div><div class="shop-item-qty">1</div></div>
     <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Green beans</div><div class="shop-item-qty">200g bag</div></div>
@@ -886,7 +894,7 @@
   </div>
 
   <div class="shop-category">
-    <div class="shop-cat-title">🫙 Pantry & Condiments</div>
+    <div class="shop-cat-title">🫙 Pantry</div>
     <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Chia seeds</div><div class="shop-item-qty">small bag</div></div>
     <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Olive oil</div><div class="shop-item-qty">bottle</div></div>
     <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Low-sodium soy sauce</div><div class="shop-item-qty">bottle</div></div>
@@ -904,11 +912,15 @@
 </div>
 
 <script>
-  function switchTab(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const TABS = ['mon','tue','wed','thu','fri','shop'];
+
+  function switchTab(id, btn) {
+    TABS.forEach(t => {
+      document.getElementById('tab-' + t).classList.remove('active');
+    });
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
-    event.currentTarget.classList.add('active');
+    btn.classList.add('active');
     try { localStorage.setItem('meal_tab', id); } catch(e) {}
   }
 
@@ -923,8 +935,7 @@
 
   function saveShop() {
     try {
-      const items = document.querySelectorAll('.shop-item');
-      const state = Array.from(items).map(i => i.classList.contains('checked'));
+      const state = Array.from(document.querySelectorAll('.shop-item')).map(i => i.classList.contains('checked'));
       localStorage.setItem('shop_checked', JSON.stringify(state));
     } catch(e) {}
   }
@@ -934,12 +945,15 @@
     try { localStorage.removeItem('shop_checked'); } catch(e) {}
   }
 
-  // Restore state
+  // Restore on load
   try {
     const tab = localStorage.getItem('meal_tab');
-    if (tab) {
-      const btn = document.querySelector(`.tab-btn[onclick="switchTab('${tab}')"]`);
-      if (btn) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); document.getElementById('tab-' + tab)?.classList.add('active'); btn.classList.add('active'); }
+    if (tab && TABS.includes(tab)) {
+      TABS.forEach(t => document.getElementById('tab-' + t).classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      const btn = document.querySelector(`.tab-btn[onclick="switchTab('${tab}',this)"]`);
+      if (btn) btn.classList.add('active');
     }
     const shopState = JSON.parse(localStorage.getItem('shop_checked') || 'null');
     if (shopState) {
