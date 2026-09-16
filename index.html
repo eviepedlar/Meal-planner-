@@ -1,67 +1,68 @@
 <title>Evie's Meal Plan</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Meal Plan" />
-<meta name="theme-color" content="#7aad8e" />
+<meta name="theme-color" content="#b8d9c4" />
 <link rel="manifest" href="/manifest.json" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap">
 
 <style>
   :root {
-    --bg: #f2f8f4;
+    --bg: #f4faf6;
     --surface: #ffffff;
-    --surface2: #eaf3ee;
-    --sage: #7aad8e;
-    --sage-dark: #4d8c65;
-    --sage-light: #d4ecdd;
-    --accent: #5a9a72;
-    --amber: #c97c3a;
-    --amber-light: #fbeede;
-    --text: #1e3228;
+    --surface2: #eaf5ef;
+    --sage: #5a9a70;
+    --sage-mid: #7ab892;
+    --sage-light: #d0eadb;
+    --header-bg: #c2dfc9;
+    --header-text: #2a4a38;
+    --amber: #b86e2c;
+    --amber-light: #faeadb;
+    --text: #243830;
     --text-muted: #6a8a78;
-    --border: #cde3d5;
-    --header-h: 60px;
+    --border: #c8ddd0;
+    --header-h: 64px;
     --nav-h: 44px;
+    --week-h: 46px;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #121d16;
-      --surface: #1a2b20;
-      --surface2: #1f3327;
+      --bg: #14201a;
+      --surface: #1c2e24;
+      --surface2: #1f3328;
       --sage: #6ab882;
-      --sage-dark: #8dd4a4;
+      --sage-mid: #5a9a70;
       --sage-light: #1e3828;
-      --accent: #6ab882;
-      --amber: #e08a50;
+      --header-bg: #1f3828;
+      --header-text: #c0e0cc;
+      --amber: #d08040;
       --amber-light: #2d1f10;
-      --text: #d8eed e;
-      --text: #d4ede0;
+      --text: #d0e8d8;
       --text-muted: #7aaa90;
       --border: #2a4034;
     }
   }
 
   :root[data-theme="dark"] {
-    --bg: #121d16;
-    --surface: #1a2b20;
-    --surface2: #1f3327;
+    --bg: #14201a;
+    --surface: #1c2e24;
+    --surface2: #1f3328;
     --sage: #6ab882;
-    --sage-dark: #8dd4a4;
+    --sage-mid: #5a9a70;
     --sage-light: #1e3828;
-    --accent: #6ab882;
-    --amber: #e08a50;
+    --header-bg: #1f3828;
+    --header-text: #c0e0cc;
+    --amber: #d08040;
     --amber-light: #2d1f10;
-    --text: #d4ede0;
+    --text: #d0e8d8;
     --text-muted: #7aaa90;
     --border: #2a4034;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html, body { height: 100%; }
-
   body {
     font-family: 'DM Sans', system-ui, sans-serif;
     background: var(--bg);
@@ -71,47 +72,90 @@
     min-height: 100%;
   }
 
-  /* ── Header ── */
+  /* Header */
   .app-header {
     position: sticky;
     top: env(safe-area-inset-top, 0px);
     height: var(--header-h);
-    background: var(--sage);
-    padding: 0 20px;
+    background: var(--header-bg);
+    padding: 0 18px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    z-index: 30;
+    z-index: 40;
   }
   .app-header h1 {
     font-family: 'DM Serif Display', Georgia, serif;
     font-size: 20px;
-    color: #fff;
+    color: var(--header-text);
     line-height: 1.1;
   }
   .app-header p {
     font-size: 11.5px;
-    color: rgba(255,255,255,0.8);
+    color: var(--header-text);
+    opacity: 0.7;
     margin-top: 2px;
   }
 
-  /* ── Tab nav ── */
-  .tab-nav {
+  /* Week toggle */
+  .week-bar {
     position: sticky;
     top: calc(env(safe-area-inset-top, 0px) + var(--header-h));
+    height: var(--week-h);
+    background: var(--surface);
+    border-bottom: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 8px;
+    z-index: 35;
+  }
+  .week-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-right: 4px;
+  }
+  .week-btn {
+    flex: 1;
+    max-width: 100px;
+    padding: 6px 0;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .week-btn.active {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* Tab nav */
+  .tab-nav {
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + var(--week-h));
     height: var(--nav-h);
     background: var(--surface);
     border-bottom: 1.5px solid var(--border);
     display: flex;
     overflow-x: auto;
     scrollbar-width: none;
-    z-index: 20;
+    z-index: 30;
   }
   .tab-nav::-webkit-scrollbar { display: none; }
-
   .tab-btn {
     flex: 1;
-    min-width: 52px;
+    min-width: 48px;
     padding: 0 4px;
     background: none;
     border: none;
@@ -125,40 +169,23 @@
     white-space: nowrap;
     transition: color 0.15s, border-color 0.15s;
   }
-  .tab-btn.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-    font-weight: 600;
-  }
+  .tab-btn.active { color: var(--sage); border-bottom-color: var(--sage); font-weight: 600; }
   .tab-btn.shop-tab { color: var(--amber); }
   .tab-btn.shop-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
 
-  /* ── Page content ── */
-  .page { display: none; padding: 18px 16px 32px; }
+  /* Pages */
+  .week-panel { display: none; }
+  .week-panel.active { display: block; }
+  .page { display: none; padding: 16px 16px 32px; }
   .page.active { display: block; }
 
-  /* ── Budget banner ── */
-  .budget-banner {
-    background: var(--sage-light);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 14px;
-    margin-bottom: 14px;
-    font-size: 13px;
-    color: var(--sage-dark);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  /* ── Prep banner ── */
+  /* Prep banner */
   .prep-banner {
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 10px 14px;
-    margin-bottom: 14px;
+    padding: 10px 13px;
+    margin-bottom: 13px;
     font-size: 13px;
     color: var(--text-muted);
     display: flex;
@@ -168,55 +195,64 @@
   }
   .prep-banner .icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
 
-  /* ── Day totals ── */
+  /* Day totals */
   .day-totals {
-    background: var(--sage);
+    background: var(--sage-light);
+    border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 12px 16px;
+    padding: 11px 16px;
     display: flex;
-    gap: 0;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
   .total-item { flex: 1; text-align: center; }
-  .total-item + .total-item { border-left: 1px solid rgba(255,255,255,0.25); }
+  .total-item + .total-item { border-left: 1px solid var(--border); }
   .total-val {
     font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    color: #fff;
+    font-size: 19px;
+    color: var(--sage);
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
   .total-label {
-    font-size: 10.5px;
-    color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    color: var(--text-muted);
     margin-top: 3px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
-  /* ── Meal section ── */
-  .meal-section { margin-bottom: 12px; }
+  /* Meal sections */
+  .meal-section { margin-bottom: 11px; }
   .meal-label {
     font-size: 10.5px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--text-muted);
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     display: flex;
     align-items: center;
     gap: 6px;
   }
   .prep-tag {
     background: var(--sage-light);
-    color: var(--sage-dark);
+    color: var(--sage);
     font-size: 9px;
     padding: 1px 6px;
     border-radius: 99px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     font-weight: 600;
+  }
+  .freeze-tag {
+    background: #ddeeff;
+    color: #4488bb;
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 99px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
   }
 
   .meal-card {
@@ -226,7 +262,7 @@
     overflow: hidden;
   }
   .meal-card-header {
-    padding: 13px 14px 11px;
+    padding: 12px 14px 10px;
     cursor: pointer;
     display: flex;
     align-items: flex-start;
@@ -234,8 +270,6 @@
     gap: 10px;
     -webkit-tap-highlight-color: transparent;
   }
-  .meal-card-header:active { background: var(--surface2); }
-
   .meal-name {
     font-family: 'DM Serif Display', Georgia, serif;
     font-size: 17px;
@@ -245,7 +279,7 @@
   .meal-meta {
     display: flex;
     gap: 6px;
-    margin-top: 6px;
+    margin-top: 5px;
     flex-wrap: wrap;
   }
   .macro-chip {
@@ -257,18 +291,15 @@
     border-radius: 99px;
   }
   .macro-chip.protein { background: var(--amber-light); color: var(--amber); }
-  .macro-chip.kcal { background: var(--sage-light); color: var(--sage-dark); }
+  .macro-chip.kcal { background: var(--sage-light); color: var(--sage); }
 
   .expand-chevron {
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
+    width: 24px; height: 24px;
     border-radius: 50%;
     background: var(--surface2);
     border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     color: var(--text-muted);
     font-size: 13px;
     transition: transform 0.2s;
@@ -276,56 +307,76 @@
   }
   .meal-card.open .expand-chevron { transform: rotate(180deg); }
 
-  .meal-ingredients {
+  .meal-body {
     display: none;
     border-top: 1px solid var(--border);
-    padding: 12px 14px 14px;
     background: var(--surface2);
   }
-  .meal-card.open .meal-ingredients { display: block; }
+  .meal-card.open .meal-body { display: block; }
 
-  .ingredients-title {
-    font-size: 10.5px;
+  .section-title {
+    font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--text-muted);
-    margin-bottom: 8px;
+    padding: 10px 14px 6px;
   }
   .ingredient-row {
     display: flex;
     align-items: baseline;
     gap: 8px;
-    padding: 5px 0;
-    border-bottom: 1px solid var(--border);
+    padding: 5px 14px;
+    border-top: 1px solid var(--border);
     font-size: 13.5px;
   }
-  .ingredient-row:last-child { border-bottom: none; }
   .ingredient-qty {
     font-size: 12px;
     font-weight: 600;
-    color: var(--accent);
-    min-width: 56px;
+    color: var(--sage);
+    min-width: 58px;
     flex-shrink: 0;
     font-variant-numeric: tabular-nums;
   }
   .ingredient-name { color: var(--text); flex: 1; }
-  .ingredient-note {
-    font-size: 11px;
-    color: var(--text-muted);
-    flex-shrink: 0;
-  }
   .gut-tag {
     font-size: 10px;
     background: var(--sage-light);
-    color: var(--sage-dark);
+    color: var(--sage);
     padding: 1px 5px;
     border-radius: 4px;
     font-weight: 600;
     flex-shrink: 0;
   }
+  .recipe-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+  .recipe-steps {
+    padding: 8px 14px 13px;
+  }
+  .recipe-step {
+    display: flex;
+    gap: 10px;
+    padding: 5px 0;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--sage);
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
 
-  /* ── Shopping list ── */
+  /* Shopping */
   .shop-header {
     display: flex;
     align-items: center;
@@ -333,12 +384,7 @@
     margin-bottom: 14px;
     gap: 12px;
   }
-  .shop-intro {
-    font-size: 13px;
-    color: var(--text-muted);
-    flex: 1;
-    line-height: 1.45;
-  }
+  .shop-intro { font-size: 13px; color: var(--text-muted); flex: 1; line-height: 1.45; }
   .shop-reset {
     background: none;
     border: 1px solid var(--border);
@@ -353,73 +399,49 @@
   }
   .shop-category { margin-bottom: 20px; }
   .shop-cat-title {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-    padding-bottom: 6px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-muted);
+    margin-bottom: 6px; padding-bottom: 6px;
     border-bottom: 1px solid var(--border);
   }
   .shop-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    user-select: none;
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 0; border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
   .shop-item:last-child { border-bottom: none; }
   .shop-checkbox {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border);
-    border-radius: 5px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    background: var(--surface);
+    width: 20px; height: 20px;
+    border: 2px solid var(--border); border-radius: 5px;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; background: var(--surface);
   }
-  .shop-item.checked .shop-checkbox {
-    background: var(--sage);
-    border-color: var(--sage);
-  }
+  .shop-item.checked .shop-checkbox { background: var(--sage); border-color: var(--sage); }
   .shop-item.checked .shop-checkbox::after {
-    content: '';
-    width: 10px;
-    height: 6px;
-    border-left: 2px solid white;
-    border-bottom: 2px solid white;
-    transform: rotate(-45deg) translateY(-1px);
-    display: block;
+    content: ''; width: 10px; height: 6px;
+    border-left: 2px solid white; border-bottom: 2px solid white;
+    transform: rotate(-45deg) translateY(-1px); display: block;
   }
-  .shop-item-text {
-    font-size: 14px;
-    color: var(--text);
-    flex: 1;
-  }
-  .shop-item.checked .shop-item-text {
-    text-decoration: line-through;
-    color: var(--text-muted);
-  }
-  .shop-item-qty {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-muted);
-    flex-shrink: 0;
-  }
+  .shop-item-text { font-size: 14px; color: var(--text); flex: 1; }
+  .shop-item.checked .shop-item-text { text-decoration: line-through; color: var(--text-muted); }
+  .shop-item-qty { font-size: 12px; font-weight: 600; color: var(--text-muted); flex-shrink: 0; }
 </style>
 
+<!-- HEADER -->
 <div class="app-header">
   <h1>Evie's Meal Plan</h1>
   <p>High protein · Gut friendly · Asda · ~£40/week</p>
 </div>
 
+<!-- WEEK TOGGLE -->
+<div class="week-bar">
+  <span class="week-label">Week</span>
+  <button class="week-btn active" onclick="switchWeek(1,this)">Week 1</button>
+  <button class="week-btn" onclick="switchWeek(2,this)">Week 2</button>
+</div>
+
+<!-- TAB NAV -->
 <nav class="tab-nav">
   <button class="tab-btn active" onclick="switchTab('mon',this)">Mon</button>
   <button class="tab-btn" onclick="switchTab('tue',this)">Tue</button>
@@ -429,536 +451,987 @@
   <button class="tab-btn shop-tab" onclick="switchTab('shop',this)">🛒 List</button>
 </nav>
 
-<!-- MONDAY -->
-<div id="tab-mon" class="page active">
-  <div class="prep-banner">
-    <span class="icon">🥣</span>
-    <span><strong>Prep Sunday evening:</strong> Make overnight oats + egg muffins for the week. Batch cook chicken & quinoa for Mon–Tue lunches.</span>
-  </div>
+<!-- ═══════════════════ WEEK 1 ═══════════════════ -->
+<div id="week1" class="week-panel active">
 
-  <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,220</div><div class="total-label">Calories</div></div>
-    <div class="total-item"><div class="total-val">~105g</div><div class="total-label">Protein</div></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
-  </div>
+  <!-- W1 MONDAY -->
+  <div id="w1-tab-mon" class="page active">
+    <div class="prep-banner"><span class="icon">🥣</span><span><strong>Prep Sunday evening:</strong> Make overnight oats (3 jars) + egg muffins (6). Batch cook chicken & quinoa for Mon–Tue lunches.</span></div>
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,220</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~105g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Greek Yogurt Overnight Oats</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">25g protein</span>
-            <span class="macro-chip kcal">320 kcal</span>
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Greek Yogurt Overnight Oats</div><div class="meal-meta"><span class="macro-chip protein">25g protein</span><span class="macro-chip kcal">320 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (makes 3 jars — Mon / Wed / Fri)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">600g</span><span class="ingredient-name">0% fat Greek yogurt</span><span class="gut-tag">probiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">120g</span><span class="ingredient-name">Rolled oats</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3 tbsp</span><span class="ingredient-name">Chia seeds</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">180ml</span><span class="ingredient-name">Skimmed or oat milk</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3 tsp</span><span class="ingredient-name">Honey</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Vanilla extract</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>In each jar mix 200g yogurt, 40g oats, 1 tbsp chia seeds, 60ml milk, 1 tsp honey and a drop of vanilla.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Stir well, seal the jars and refrigerate overnight.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Keeps in the fridge for up to 5 days. Grab and go in the morning.</div></div>
           </div>
         </div>
-        <div class="expand-chevron">▾</div>
       </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (makes 3 — Mon / Wed / Fri)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">600g</span><span class="ingredient-name">0% fat Greek yogurt</span><span class="gut-tag">probiotic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">120g</span><span class="ingredient-name">Rolled oats</span><span class="gut-tag">prebiotic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">3 tbsp</span><span class="ingredient-name">Chia seeds</span><span class="gut-tag">fibre</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">3 tsp</span><span class="ingredient-name">Honey</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">90g</span><span class="ingredient-name">Blueberries</span><span class="ingredient-note">30g per jar</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">180ml</span><span class="ingredient-name">Skimmed or oat milk</span></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span> <span class="freeze-tag">❄ freezable</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Chicken & Quinoa Power Bowl</div><div class="meal-meta"><span class="macro-chip protein">42g protein</span><span class="macro-chip kcal">420 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (makes 2 — Mon & Tue)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">300g</span><span class="ingredient-name">Chicken breast</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">160g dry</span><span class="ingredient-name">Quinoa</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Cucumber, diced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 handfuls</span><span class="ingredient-name">Baby spinach</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Olive oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Lemon, juice</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Season chicken with garlic, salt and pepper. Bake at 200°C for 20–22 min, then slice.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Rinse and cook quinoa per packet (usually 15 min). Cool slightly.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Toss quinoa with olive oil, lemon juice and seasoning. Divide into 2 containers with spinach, cucumber and chicken on top. Refrigerate.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Baked Salmon with Sweet Potato & Broccoli</div><div class="meal-meta"><span class="macro-chip protein">38g protein</span><span class="macro-chip kcal">480 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Salmon fillet</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">200g</span><span class="ingredient-name">Sweet potato</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">100g</span><span class="ingredient-name">Tenderstem broccoli</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tbsp</span><span class="ingredient-name">Olive oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Lemon</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Cube sweet potato, toss in olive oil and roast at 200°C for 20 min.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Add broccoli and salmon to the tray. Season salmon with garlic, lemon and pepper.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Bake a further 12–15 min until salmon flakes easily.</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Chicken & Quinoa Power Bowl</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">42g protein</span>
-            <span class="macro-chip kcal">420 kcal</span>
+  <!-- W1 TUESDAY -->
+  <div id="w1-tab-tue" class="page">
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,130</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~104g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span> <span class="freeze-tag">❄ freezable</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Spinach & Feta Egg Muffins</div><div class="meal-meta"><span class="macro-chip protein">22g protein</span><span class="macro-chip kcal">250 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (makes 6 — Tue & Thu, 3 each)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">6 large</span><span class="ingredient-name">Eggs</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">60g</span><span class="ingredient-name">Baby spinach</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">60g</span><span class="ingredient-name">Feta cheese, crumbled</span><span class="gut-tag">probiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Red pepper, diced small</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">¼ tsp</span><span class="ingredient-name">Black pepper</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Preheat oven to 180°C. Grease a silicone 6-hole muffin tray.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Whisk eggs with pepper. Stir in spinach, feta and red pepper.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Pour evenly into the tray and bake 18–20 min until set. Cool before storing. Microwave 45 sec to reheat.</div></div>
           </div>
         </div>
-        <div class="expand-chevron">▾</div>
       </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (makes 2 — Mon & Tue)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">300g</span><span class="ingredient-name">Chicken breast</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">160g dry</span><span class="ingredient-name">Quinoa</span><span class="gut-tag">fibre</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Cucumber, diced</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 handfuls</span><span class="ingredient-name">Baby spinach</span><span class="gut-tag">prebiotic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Olive oil</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Lemon (juice)</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Chicken & Quinoa Power Bowl</div><div class="meal-meta"><span class="macro-chip protein">42g protein</span><span class="macro-chip kcal">420 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Same batch as Monday — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take from fridge, microwave 2 min or eat cold</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Chicken Stir Fry with Brown Rice & Pak Choi</div><div class="meal-meta"><span class="macro-chip protein">40g protein</span><span class="macro-chip kcal">460 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Chicken breast, sliced thin</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">70g dry</span><span class="ingredient-name">Brown rice</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 head</span><span class="ingredient-name">Pak choi, halved</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">80g</span><span class="ingredient-name">Tenderstem broccoli</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Low-sodium soy sauce</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Sesame oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 thumb</span><span class="ingredient-name">Fresh ginger, grated</span><span class="gut-tag">anti-inflam</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic, minced</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Cook brown rice per packet (25 min). Meanwhile, heat a wok on high.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Stir fry chicken in sesame oil for 4–5 min. Add garlic and ginger, cook 1 min.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Add broccoli and pak choi, stir fry 3 min. Add soy sauce and toss. Serve over rice.</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Dinner</div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Baked Salmon with Sweet Potato & Broccoli</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">38g protein</span>
-            <span class="macro-chip kcal">480 kcal</span>
-          </div>
+  <!-- W1 WEDNESDAY -->
+  <div id="w1-tab-wed" class="page">
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,100</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~105g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Greek Yogurt Overnight Oats</div><div class="meal-meta"><span class="macro-chip protein">25g protein</span><span class="macro-chip kcal">320 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
         </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (1 serving)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Salmon fillet</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">200g</span><span class="ingredient-name">Sweet potato</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">100g</span><span class="ingredient-name">Tenderstem broccoli</span><span class="gut-tag">fibre</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 tbsp</span><span class="ingredient-name">Olive oil</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Lemon</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">to taste</span><span class="ingredient-name">Black pepper, sea salt</span></div>
+        <div class="meal-body">
+          <div class="section-title">Same batch as Monday — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take jar from fridge, give it a stir</span></div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- TUESDAY -->
-<div id="tab-tue" class="page">
-  <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,130</div><div class="total-label">Calories</div></div>
-    <div class="total-item"><div class="total-val">~104g</div><div class="total-label">Protein</div></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
-  </div>
-
-  <div class="meal-section">
-    <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Spinach & Feta Egg Muffins</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">22g protein</span>
-            <span class="macro-chip kcal">250 kcal</span>
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span> <span class="freeze-tag">❄ freezable</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Turkey & Sweet Potato Bowl</div><div class="meal-meta"><span class="macro-chip protein">40g protein</span><span class="macro-chip kcal">400 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (makes 2 — Wed & Thu)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">300g</span><span class="ingredient-name">Turkey breast slices</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">300g</span><span class="ingredient-name">Sweet potato, cubed</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">200g</span><span class="ingredient-name">Green beans</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Olive oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Paprika</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Toss sweet potato cubes in olive oil, paprika and garlic. Roast at 200°C for 25 min.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Steam or boil green beans for 4 min, drain and cool.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Slice turkey and divide everything into 2 containers. Refrigerate.</div></div>
           </div>
         </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (makes 6 — Tue & Thu, 3 each)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">6 large</span><span class="ingredient-name">Eggs</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">60g</span><span class="ingredient-name">Baby spinach</span><span class="gut-tag">prebiotic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">60g</span><span class="ingredient-name">Feta cheese, crumbled</span><span class="gut-tag">probiotic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Red pepper, diced</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">¼ tsp</span><span class="ingredient-name">Black pepper</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty" style="min-width:0;flex:1;color:var(--text-muted);font-weight:400;font-size:12px;" colspan="3">Bake at 180°C for 18 min in a silicone muffin tray</span></div>
       </div>
     </div>
-  </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Chicken & Quinoa Power Bowl</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">42g protein</span>
-            <span class="macro-chip kcal">420 kcal</span>
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Baked Cod with Courgette & Edamame</div><div class="meal-meta"><span class="macro-chip protein">40g protein</span><span class="macro-chip kcal">380 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">180g</span><span class="ingredient-name">Cod fillet</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Courgette, sliced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">80g</span><span class="ingredient-name">Frozen edamame, defrosted</span><span class="gut-tag">probiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tbsp</span><span class="ingredient-name">Olive oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Lemon</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">to taste</span><span class="ingredient-name">Dried thyme or dill</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Toss courgette in olive oil, garlic and herbs. Spread on a baking tray and roast at 200°C for 10 min.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Push veg to the side, add cod and squeeze lemon over. Season and bake 12 min.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Add edamame to the tray for the final 3 min to warm through.</div></div>
           </div>
         </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Same batch as Monday — already made ✓</div>
-        <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take from fridge, microwave 2 min</span></div>
       </div>
     </div>
   </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Dinner</div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Chicken Stir Fry with Brown Rice & Pak Choi</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">40g protein</span>
-            <span class="macro-chip kcal">460 kcal</span>
-          </div>
+  <!-- W1 THURSDAY -->
+  <div id="w1-tab-thu" class="page">
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,100</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~104g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Spinach & Feta Egg Muffins</div><div class="meal-meta"><span class="macro-chip protein">22g protein</span><span class="macro-chip kcal">250 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
         </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (1 serving)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Chicken breast, sliced</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">70g dry</span><span class="ingredient-name">Brown rice</span><span class="gut-tag">fibre</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 head</span><span class="ingredient-name">Pak choi</span><span class="gut-tag">fibre</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">80g</span><span class="ingredient-name">Tenderstem broccoli</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Low-sodium soy sauce</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Sesame oil</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 thumb</span><span class="ingredient-name">Fresh ginger, grated</span><span class="gut-tag">anti-inflam</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic, minced</span></div>
+        <div class="meal-body">
+          <div class="section-title">Same batch as Tuesday — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">3 muffins from fridge, microwave 45 sec</span></div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- WEDNESDAY -->
-<div id="tab-wed" class="page">
-  <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,100</div><div class="total-label">Calories</div></div>
-    <div class="total-item"><div class="total-val">~105g</div><div class="total-label">Protein</div></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
-  </div>
-
-  <div class="meal-section">
-    <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Greek Yogurt Overnight Oats</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">25g protein</span>
-            <span class="macro-chip kcal">320 kcal</span>
-          </div>
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Turkey & Sweet Potato Bowl</div><div class="meal-meta"><span class="macro-chip protein">40g protein</span><span class="macro-chip kcal">400 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
         </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Same batch as Monday — already made ✓</div>
-        <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take jar from fridge</span></div>
+        <div class="meal-body">
+          <div class="section-title">Same batch as Wednesday — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take from fridge, microwave 2 min</span></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Turkey & Sweet Potato Bowl</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">40g protein</span>
-            <span class="macro-chip kcal">400 kcal</span>
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Turkey Mince & Brown Rice Bowl</div><div class="meal-meta"><span class="macro-chip protein">42g protein</span><span class="macro-chip kcal">450 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving) <span class="freeze-tag" style="margin-left:4px">❄ freezable</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Turkey mince (5% fat)</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">70g dry</span><span class="ingredient-name">Brown rice</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Courgette, diced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 handful</span><span class="ingredient-name">Baby spinach</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Low-sodium soy sauce</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 thumb</span><span class="ingredient-name">Fresh ginger</span><span class="gut-tag">anti-inflam</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Sesame oil</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Cook rice per packet. Meanwhile, fry turkey mince in sesame oil until browned, about 6 min.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Add garlic, ginger and courgette. Cook 4 min.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Add soy sauce and spinach, stir until wilted. Serve over rice.</div></div>
           </div>
         </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (makes 2 — Wed & Thu)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">300g</span><span class="ingredient-name">Turkey breast slices</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">300g</span><span class="ingredient-name">Sweet potato, cubed & roasted</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">200g</span><span class="ingredient-name">Green beans, steamed</span><span class="gut-tag">fibre</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Olive oil</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Paprika</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
       </div>
     </div>
   </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Dinner</div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Baked Cod with Courgette & Edamame</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">40g protein</span>
-            <span class="macro-chip kcal">380 kcal</span>
-          </div>
+  <!-- W1 FRIDAY -->
+  <div id="w1-tab-fri" class="page">
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,050</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~95g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Greek Yogurt Overnight Oats</div><div class="meal-meta"><span class="macro-chip protein">25g protein</span><span class="macro-chip kcal">320 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
         </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (1 serving)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">180g</span><span class="ingredient-name">Cod fillet</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Courgette, sliced</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">80g</span><span class="ingredient-name">Frozen edamame, defrosted</span><span class="gut-tag">probiotic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 tbsp</span><span class="ingredient-name">Olive oil</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Lemon</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">to taste</span><span class="ingredient-name">Dried herbs (thyme or dill)</span></div>
+        <div class="meal-body">
+          <div class="section-title">3rd jar from Sunday batch — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take jar from fridge, give it a stir</span></div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- THURSDAY -->
-<div id="tab-thu" class="page">
-  <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,100</div><div class="total-label">Calories</div></div>
-    <div class="total-item"><div class="total-val">~104g</div><div class="total-label">Protein</div></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
-  </div>
-
-  <div class="meal-section">
-    <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Spinach & Feta Egg Muffins</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">22g protein</span>
-            <span class="macro-chip kcal">250 kcal</span>
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Tuna & Cucumber Rice Cakes</div><div class="meal-meta"><span class="macro-chip protein">38g protein</span><span class="macro-chip kcal">310 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving — prep Thursday night)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 tins</span><span class="ingredient-name">Tuna in spring water</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">4</span><span class="ingredient-name">Plain rice cakes</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Cucumber, sliced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 handful</span><span class="ingredient-name">Rocket</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tbsp</span><span class="ingredient-name">Light mayonnaise</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Lemon, juice</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Drain tuna and mix with mayo, lemon juice and black pepper.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Pack tuna mix, rice cakes, cucumber and rocket separately so nothing goes soggy.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Assemble at lunch — top rice cakes with tuna mix, rocket and cucumber.</div></div>
           </div>
         </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Same batch as Tuesday — already made ✓</div>
-        <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">3 muffins from fridge, microwave 45 sec</span></div>
       </div>
     </div>
-  </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Turkey & Sweet Potato Bowl</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">40g protein</span>
-            <span class="macro-chip kcal">400 kcal</span>
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">King Prawn & Vegetable Noodle Stir Fry</div><div class="meal-meta"><span class="macro-chip protein">32g protein</span><span class="macro-chip kcal">420 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">200g</span><span class="ingredient-name">King prawns, raw</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">80g dry</span><span class="ingredient-name">Rice noodles</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 head</span><span class="ingredient-name">Pak choi</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3</span><span class="ingredient-name">Spring onions, sliced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Low-sodium soy sauce</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Sesame oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 thumb</span><span class="ingredient-name">Fresh ginger</span><span class="gut-tag">anti-inflam</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Soak rice noodles in boiling water for 4–5 min, drain and set aside.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Heat sesame oil in a wok, fry garlic and ginger 30 sec, then add prawns and cook 2–3 min until pink.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Add pak choi and spring onions, toss 2 min. Add noodles and soy sauce, toss everything together and serve.</div></div>
           </div>
         </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Same batch as Wednesday — already made ✓</div>
-        <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take from fridge, microwave 2 min</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="meal-section">
-    <div class="meal-label">Dinner</div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Turkey Mince & Brown Rice Bowl</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">42g protein</span>
-            <span class="macro-chip kcal">450 kcal</span>
-          </div>
-        </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (1 serving)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Turkey mince (5% fat)</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">70g dry</span><span class="ingredient-name">Brown rice</span><span class="gut-tag">fibre</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Courgette, diced</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 handful</span><span class="ingredient-name">Baby spinach, wilted in</span><span class="gut-tag">prebiotic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Low-sodium soy sauce</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 thumb</span><span class="ingredient-name">Fresh ginger</span><span class="gut-tag">anti-inflam</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Sesame oil</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FRIDAY -->
-<div id="tab-fri" class="page">
-  <div class="day-totals">
-    <div class="total-item"><div class="total-val">~1,050</div><div class="total-label">Calories</div></div>
-    <div class="total-item"><div class="total-val">~95g</div><div class="total-label">Protein</div></div>
-    <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
-  </div>
-
-  <div class="meal-section">
-    <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Greek Yogurt Overnight Oats</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">25g protein</span>
-            <span class="macro-chip kcal">320 kcal</span>
-          </div>
-        </div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">3rd jar from Sunday batch — already made ✓</div>
-        <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take jar from fridge, give it a stir</span></div>
       </div>
     </div>
   </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">Tuna & Cucumber Rice Cakes</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">38g protein</span>
-            <span class="macro-chip kcal">310 kcal</span>
+  <!-- W1 SHOPPING -->
+  <div id="w1-tab-shop" class="page">
+    <div class="shop-header">
+      <p class="shop-intro">Everything for <strong>Week 1</strong> from Asda. Est. <strong>~£38–40</strong>.</p>
+      <button class="shop-reset" onclick="resetShop('w1')">Clear all</button>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🥩 Protein</div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Chicken breast</div><div class="shop-item-qty">450g</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Salmon fillet</div><div class="shop-item-qty">150g</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Cod fillet</div><div class="shop-item-qty">180g</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Turkey breast slices</div><div class="shop-item-qty">300g pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Turkey mince (5% fat)</div><div class="shop-item-qty">500g pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">King prawns (raw)</div><div class="shop-item-qty">200g pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Tuna in spring water</div><div class="shop-item-qty">4 tins</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Large eggs</div><div class="shop-item-qty">6</div></div>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🥛 Dairy</div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">0% fat Greek yogurt</div><div class="shop-item-qty">1kg pot</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Feta cheese</div><div class="shop-item-qty">100g</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Skimmed or oat milk</div><div class="shop-item-qty">½ pint</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Light mayonnaise</div><div class="shop-item-qty">small jar</div></div>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🌾 Grains</div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Quinoa</div><div class="shop-item-qty">500g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Brown rice</div><div class="shop-item-qty">500g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Rice noodles</div><div class="shop-item-qty">200g pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Rolled oats</div><div class="shop-item-qty">500g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Plain rice cakes</div><div class="shop-item-qty">1 pack</div></div>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🥦 Vegetables</div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Sweet potatoes</div><div class="shop-item-qty">3 large</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Tenderstem broccoli</div><div class="shop-item-qty">2 packs</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Pak choi</div><div class="shop-item-qty">2 heads</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Courgette</div><div class="shop-item-qty">2</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Baby spinach</div><div class="shop-item-qty">200g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Cucumber</div><div class="shop-item-qty">2</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Red pepper</div><div class="shop-item-qty">1</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Green beans</div><div class="shop-item-qty">200g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Rocket</div><div class="shop-item-qty">small bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Spring onions</div><div class="shop-item-qty">bunch</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Garlic bulb</div><div class="shop-item-qty">1</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Fresh ginger</div><div class="shop-item-qty">1 piece</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Frozen edamame</div><div class="shop-item-qty">200g bag</div></div>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🫙 Pantry</div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Chia seeds</div><div class="shop-item-qty">small bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Olive oil</div><div class="shop-item-qty">bottle</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Low-sodium soy sauce</div><div class="shop-item-qty">bottle</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Sesame oil</div><div class="shop-item-qty">small bottle</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Honey</div><div class="shop-item-qty">jar</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Vanilla extract</div><div class="shop-item-qty">small bottle</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Paprika</div><div class="shop-item-qty">jar</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w1')"><div class="shop-checkbox"></div><div class="shop-item-text">Lemons</div><div class="shop-item-qty">3</div></div>
+    </div>
+  </div>
+</div><!-- end week1 -->
+
+<!-- ═══════════════════ WEEK 2 ═══════════════════ -->
+<div id="week2" class="week-panel">
+
+  <!-- W2 MONDAY -->
+  <div id="w2-tab-mon" class="page active">
+    <div class="prep-banner"><span class="icon">🥚</span><span><strong>Prep Sunday evening:</strong> Make cottage cheese bowls (3) + turkey & pepper egg muffins (6). Batch cook prawn & quinoa for Mon–Tue lunches.</span></div>
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,200</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~108g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Cottage Cheese & Oat Bowls</div><div class="meal-meta"><span class="macro-chip protein">28g protein</span><span class="macro-chip kcal">310 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (makes 3 — Mon / Wed / Fri)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">450g</span><span class="ingredient-name">Low-fat cottage cheese</span><span class="gut-tag">probiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">120g</span><span class="ingredient-name">Rolled oats</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3 tbsp</span><span class="ingredient-name">Chia seeds</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">180ml</span><span class="ingredient-name">Skimmed or oat milk</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3 tsp</span><span class="ingredient-name">Honey</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Cinnamon</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Mix 150g cottage cheese, 40g oats, 1 tbsp chia seeds, 60ml milk, honey and cinnamon in each jar.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Stir well, seal and refrigerate overnight. Keeps up to 5 days.</div></div>
           </div>
         </div>
-        <div class="expand-chevron">▾</div>
       </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (1 serving — prep night before)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 tins</span><span class="ingredient-name">Tuna in spring water</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">4</span><span class="ingredient-name">Plain rice cakes</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Cucumber, sliced</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 handful</span><span class="ingredient-name">Rocket</span><span class="gut-tag">fibre</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Lemon (juice)</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 tbsp</span><span class="ingredient-name">Light mayonnaise</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">to taste</span><span class="ingredient-name">Black pepper</span></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Prawn & Quinoa Salad</div><div class="meal-meta"><span class="macro-chip protein">38g protein</span><span class="macro-chip kcal">400 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (makes 2 — Mon & Tue)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">300g</span><span class="ingredient-name">King prawns, cooked</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">160g dry</span><span class="ingredient-name">Quinoa</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Cucumber, diced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 handfuls</span><span class="ingredient-name">Baby spinach</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Olive oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Lemon, juice</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">½ tsp</span><span class="ingredient-name">Paprika</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Cook quinoa per packet (15 min), cool completely.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Toss quinoa with olive oil, lemon juice, paprika and seasoning.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Divide into 2 containers with spinach, cucumber and prawns on top. Refrigerate.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Baked Chicken Thighs with Roasted Veg</div><div class="meal-meta"><span class="macro-chip protein">42g protein</span><span class="macro-chip kcal">490 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">2</span><span class="ingredient-name">Chicken thighs (skinless)</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">200g</span><span class="ingredient-name">Sweet potato, cubed</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Courgette, sliced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">100g</span><span class="ingredient-name">Tenderstem broccoli</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tbsp</span><span class="ingredient-name">Olive oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Mixed herbs</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3 cloves</span><span class="ingredient-name">Garlic</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Toss sweet potato in olive oil and herbs, roast at 200°C for 15 min.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Add chicken thighs, courgette and garlic to the tray. Season well.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Roast a further 25 min until chicken is cooked through. Add broccoli for the last 8 min.</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="meal-section">
-    <div class="meal-label">Dinner</div>
-    <div class="meal-card" onclick="toggleCard(this)">
-      <div class="meal-card-header">
-        <div>
-          <div class="meal-name">King Prawn & Vegetable Noodle Stir Fry</div>
-          <div class="meal-meta">
-            <span class="macro-chip protein">32g protein</span>
-            <span class="macro-chip kcal">420 kcal</span>
+  <!-- W2 TUESDAY -->
+  <div id="w2-tab-tue" class="page">
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,150</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~106g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span> <span class="freeze-tag">❄ freezable</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Turkey & Pepper Egg Muffins</div><div class="meal-meta"><span class="macro-chip protein">26g protein</span><span class="macro-chip kcal">260 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (makes 6 — Tue & Thu, 3 each)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">6 large</span><span class="ingredient-name">Eggs</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">100g</span><span class="ingredient-name">Turkey breast, diced small</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Yellow pepper, diced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3</span><span class="ingredient-name">Spring onions, sliced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">½ tsp</span><span class="ingredient-name">Smoked paprika</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Preheat oven to 180°C. Grease a silicone 6-hole muffin tray.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Whisk eggs with paprika and seasoning. Stir in turkey, pepper and spring onions.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Pour into tray and bake 18–20 min until set. Microwave 45 sec to reheat.</div></div>
           </div>
         </div>
-        <div class="expand-chevron">▾</div>
       </div>
-      <div class="meal-ingredients">
-        <div class="ingredients-title">Ingredients (1 serving)</div>
-        <div class="ingredient-row"><span class="ingredient-qty">200g</span><span class="ingredient-name">King prawns, raw or cooked</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">80g dry</span><span class="ingredient-name">Rice noodles</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 head</span><span class="ingredient-name">Pak choi</span><span class="gut-tag">fibre</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">3</span><span class="ingredient-name">Spring onions, sliced</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Low-sodium soy sauce</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Sesame oil</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">1 thumb</span><span class="ingredient-name">Fresh ginger</span><span class="gut-tag">anti-inflam</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
-        <div class="ingredient-row"><span class="ingredient-qty">pinch</span><span class="ingredient-name">Chilli flakes (optional)</span></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Prawn & Quinoa Salad</div><div class="meal-meta"><span class="macro-chip protein">38g protein</span><span class="macro-chip kcal">400 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Same batch as Monday — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take from fridge, eat cold</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Beef Mince & Courgette Brown Rice Bowl</div><div class="meal-meta"><span class="macro-chip protein">42g protein</span><span class="macro-chip kcal">490 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving) <span class="freeze-tag" style="margin-left:4px">❄ freezable</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Extra lean beef mince (5%)</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">70g dry</span><span class="ingredient-name">Brown rice</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Courgette, diced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 handful</span><span class="ingredient-name">Baby spinach</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Low-sodium soy sauce</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 thumb</span><span class="ingredient-name">Fresh ginger</span><span class="gut-tag">anti-inflam</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Cook rice per packet. Brown beef mince in a dry pan until cooked, drain any fat.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Add garlic, ginger and courgette. Cook 4 min. Add soy sauce and spinach, stir until wilted.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Serve over rice.</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- SHOPPING LIST -->
-<div id="tab-shop" class="page">
-  <div class="shop-header">
-    <p class="shop-intro">Everything for the week from <strong>Asda</strong>. Est. <strong>~£38–40</strong>.</p>
-    <button class="shop-reset" onclick="resetShop()">Clear all</button>
+  <!-- W2 WEDNESDAY -->
+  <div id="w2-tab-wed" class="page">
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,120</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~106g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Cottage Cheese & Oat Bowls</div><div class="meal-meta"><span class="macro-chip protein">28g protein</span><span class="macro-chip kcal">310 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Same batch as Monday — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take jar from fridge, give it a stir</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span> <span class="freeze-tag">❄ freezable</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Chicken & Lentil Soup</div><div class="meal-meta"><span class="macro-chip protein">40g protein</span><span class="macro-chip kcal">380 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (makes 2 — Wed & Thu)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">300g</span><span class="ingredient-name">Chicken breast, diced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">100g dry</span><span class="ingredient-name">Red lentils</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1</span><span class="ingredient-name">Courgette, diced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 handfuls</span><span class="ingredient-name">Baby spinach</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">750ml</span><span class="ingredient-name">Chicken stock (low salt)</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Cumin</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Fry garlic and cumin in a little oil for 1 min. Add chicken and brown lightly, 4 min.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Add lentils, courgette and stock. Bring to a boil then simmer 20 min until lentils are soft.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Stir in spinach, season and divide into 2 containers. Refrigerate or freeze.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Baked Salmon with Green Beans & Brown Rice</div><div class="meal-meta"><span class="macro-chip protein">40g protein</span><span class="macro-chip kcal">430 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Salmon fillet</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">70g dry</span><span class="ingredient-name">Brown rice</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Green beans</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tbsp</span><span class="ingredient-name">Olive oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Lemon</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Dried dill</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Cook rice per packet. Steam green beans 4–5 min.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Season salmon with dill, lemon and a little olive oil. Bake at 200°C for 12–14 min.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Serve salmon over rice with green beans alongside.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="shop-category">
-    <div class="shop-cat-title">🥩 Protein</div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Chicken breast</div><div class="shop-item-qty">450g</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Salmon fillet</div><div class="shop-item-qty">1 × 150g</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Cod fillet</div><div class="shop-item-qty">1 × 180g</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Turkey breast slices</div><div class="shop-item-qty">300g pack</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Turkey mince (5% fat)</div><div class="shop-item-qty">500g pack</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">King prawns (raw)</div><div class="shop-item-qty">200g pack</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Tuna in spring water</div><div class="shop-item-qty">4 tins</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Large eggs</div><div class="shop-item-qty">6</div></div>
+  <!-- W2 THURSDAY -->
+  <div id="w2-tab-thu" class="page">
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,100</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~106g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Turkey & Pepper Egg Muffins</div><div class="meal-meta"><span class="macro-chip protein">26g protein</span><span class="macro-chip kcal">260 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Same batch as Tuesday — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">3 muffins from fridge, microwave 45 sec</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Chicken & Lentil Soup</div><div class="meal-meta"><span class="macro-chip protein">40g protein</span><span class="macro-chip kcal">380 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Same batch as Wednesday — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Reheat on the hob or microwave 3 min</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Prawn Fried Rice</div><div class="meal-meta"><span class="macro-chip protein">38g protein</span><span class="macro-chip kcal">460 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">200g</span><span class="ingredient-name">King prawns, raw</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">70g dry</span><span class="ingredient-name">Brown rice (cook day before)</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2</span><span class="ingredient-name">Eggs</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">80g</span><span class="ingredient-name">Frozen peas</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3</span><span class="ingredient-name">Spring onions, sliced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 tbsp</span><span class="ingredient-name">Low-sodium soy sauce</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Sesame oil</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Heat sesame oil in a wok. Fry garlic 30 sec, add prawns and cook 2–3 min until pink. Set aside.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Push rice to the side, crack in eggs and scramble. Mix through rice with peas and spring onions.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Add prawns back in, pour over soy sauce, toss everything together.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="shop-category">
-    <div class="shop-cat-title">🥛 Dairy</div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">0% fat Greek yogurt</div><div class="shop-item-qty">1kg pot</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Feta cheese</div><div class="shop-item-qty">100g pack</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Skimmed milk (or oat milk)</div><div class="shop-item-qty">½ pint</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Light mayonnaise</div><div class="shop-item-qty">small jar</div></div>
+  <!-- W2 FRIDAY -->
+  <div id="w2-tab-fri" class="page">
+    <div class="day-totals">
+      <div class="total-item"><div class="total-val">~1,080</div><div class="total-label">Calories</div></div>
+      <div class="total-item"><div class="total-val">~98g</div><div class="total-label">Protein</div></div>
+      <div class="total-item"><div class="total-val">High</div><div class="total-label">Gut score</div></div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Breakfast <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Cottage Cheese & Oat Bowls</div><div class="meal-meta"><span class="macro-chip protein">28g protein</span><span class="macro-chip kcal">310 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">3rd jar from Sunday batch — already made ✓</div>
+          <div class="ingredient-row"><span class="ingredient-qty">—</span><span class="ingredient-name">Take jar from fridge, give it a stir</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Lunch <span class="prep-tag">prep</span></div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Smoked Mackerel & Rice Cakes</div><div class="meal-meta"><span class="macro-chip protein">32g protein</span><span class="macro-chip kcal">330 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 fillets</span><span class="ingredient-name">Smoked mackerel</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">4</span><span class="ingredient-name">Plain rice cakes</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Cucumber, sliced</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 handful</span><span class="ingredient-name">Rocket</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tsp</span><span class="ingredient-name">Horseradish sauce (optional)</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">½</span><span class="ingredient-name">Lemon, juice</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Flake mackerel and mix with lemon juice and a little horseradish if using.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Pack mackerel mix, rice cakes, cucumber and rocket separately.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Assemble at lunch — top rice cakes with mackerel, rocket and cucumber.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-section">
+      <div class="meal-label">Dinner</div>
+      <div class="meal-card" onclick="toggleCard(this)">
+        <div class="meal-card-header">
+          <div><div class="meal-name">Turkey & Vegetable Noodle Soup</div><div class="meal-meta"><span class="macro-chip protein">38g protein</span><span class="macro-chip kcal">440 kcal</span></div></div>
+          <div class="expand-chevron">▾</div>
+        </div>
+        <div class="meal-body">
+          <div class="section-title">Ingredients (1 serving)</div>
+          <div class="ingredient-row"><span class="ingredient-qty">150g</span><span class="ingredient-name">Turkey breast, sliced thin</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">60g dry</span><span class="ingredient-name">Rice noodles</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 head</span><span class="ingredient-name">Pak choi</span><span class="gut-tag">fibre</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">600ml</span><span class="ingredient-name">Chicken stock (low salt)</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">2 cloves</span><span class="ingredient-name">Garlic</span><span class="gut-tag">prebiotic</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 thumb</span><span class="ingredient-name">Fresh ginger</span><span class="gut-tag">anti-inflam</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">1 tbsp</span><span class="ingredient-name">Soy sauce</span></div>
+          <div class="ingredient-row"><span class="ingredient-qty">3</span><span class="ingredient-name">Spring onions, sliced</span></div>
+          <hr class="recipe-divider">
+          <div class="section-title">How to make</div>
+          <div class="recipe-steps">
+            <div class="recipe-step"><div class="step-num">1</div><div>Bring stock to a simmer with garlic and ginger, 5 min.</div></div>
+            <div class="recipe-step"><div class="step-num">2</div><div>Add turkey and noodles, cook 4–5 min until turkey is cooked through.</div></div>
+            <div class="recipe-step"><div class="step-num">3</div><div>Add pak choi and soy sauce, cook 2 min. Top with spring onions and serve.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="shop-category">
-    <div class="shop-cat-title">🌾 Grains & Carbs</div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Quinoa</div><div class="shop-item-qty">500g bag</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Brown rice</div><div class="shop-item-qty">500g bag</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Rice noodles</div><div class="shop-item-qty">200g pack</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Rolled oats</div><div class="shop-item-qty">500g bag</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Plain rice cakes</div><div class="shop-item-qty">1 pack</div></div>
+  <!-- W2 SHOPPING -->
+  <div id="w2-tab-shop" class="page">
+    <div class="shop-header">
+      <p class="shop-intro">Everything for <strong>Week 2</strong> from Asda. Est. <strong>~£38–40</strong>.</p>
+      <button class="shop-reset" onclick="resetShop('w2')">Clear all</button>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🥩 Protein</div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Chicken breast</div><div class="shop-item-qty">600g</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Chicken thighs (skinless)</div><div class="shop-item-qty">2 pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Salmon fillet</div><div class="shop-item-qty">150g</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Turkey breast slices</div><div class="shop-item-qty">100g</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Extra lean beef mince (5%)</div><div class="shop-item-qty">150g</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">King prawns (raw)</div><div class="shop-item-qty">500g pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Smoked mackerel fillets</div><div class="shop-item-qty">2 pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Large eggs</div><div class="shop-item-qty">8</div></div>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🥛 Dairy</div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Low-fat cottage cheese</div><div class="shop-item-qty">500g pot</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Skimmed or oat milk</div><div class="shop-item-qty">½ pint</div></div>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🌾 Grains</div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Quinoa</div><div class="shop-item-qty">500g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Brown rice</div><div class="shop-item-qty">500g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Rice noodles</div><div class="shop-item-qty">300g pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Rolled oats</div><div class="shop-item-qty">500g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Plain rice cakes</div><div class="shop-item-qty">1 pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Red lentils</div><div class="shop-item-qty">500g bag</div></div>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🥦 Vegetables</div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Sweet potatoes</div><div class="shop-item-qty">2 large</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Tenderstem broccoli</div><div class="shop-item-qty">1 pack</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Pak choi</div><div class="shop-item-qty">2 heads</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Courgette</div><div class="shop-item-qty">3</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Baby spinach</div><div class="shop-item-qty">200g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Cucumber</div><div class="shop-item-qty">1</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Yellow pepper</div><div class="shop-item-qty">1</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Green beans</div><div class="shop-item-qty">150g bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Rocket</div><div class="shop-item-qty">small bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Spring onions</div><div class="shop-item-qty">2 bunches</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Garlic bulb</div><div class="shop-item-qty">1</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Fresh ginger</div><div class="shop-item-qty">1 piece</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Frozen peas</div><div class="shop-item-qty">400g bag</div></div>
+    </div>
+    <div class="shop-category">
+      <div class="shop-cat-title">🫙 Pantry & Stock</div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Chia seeds</div><div class="shop-item-qty">small bag</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Olive oil</div><div class="shop-item-qty">bottle</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Low-sodium soy sauce</div><div class="shop-item-qty">bottle</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Sesame oil</div><div class="shop-item-qty">small bottle</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Honey</div><div class="shop-item-qty">jar</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Chicken stock cubes (low salt)</div><div class="shop-item-qty">1 box</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Cumin</div><div class="shop-item-qty">jar</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Smoked paprika</div><div class="shop-item-qty">jar</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Cinnamon</div><div class="shop-item-qty">jar</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Dried dill</div><div class="shop-item-qty">jar</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Horseradish sauce</div><div class="shop-item-qty">small jar</div></div>
+      <div class="shop-item" onclick="toggleShop(this,'w2')"><div class="shop-checkbox"></div><div class="shop-item-text">Lemons</div><div class="shop-item-qty">2</div></div>
+    </div>
   </div>
-
-  <div class="shop-category">
-    <div class="shop-cat-title">🥦 Vegetables</div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Sweet potatoes</div><div class="shop-item-qty">3 large</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Tenderstem broccoli</div><div class="shop-item-qty">2 packs</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Pak choi</div><div class="shop-item-qty">2 heads</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Courgette</div><div class="shop-item-qty">2</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Baby spinach</div><div class="shop-item-qty">200g bag</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Cucumber</div><div class="shop-item-qty">1½</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Red pepper</div><div class="shop-item-qty">1</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Green beans</div><div class="shop-item-qty">200g bag</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Rocket</div><div class="shop-item-qty">small bag</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Spring onions</div><div class="shop-item-qty">bunch</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Garlic bulb</div><div class="shop-item-qty">1</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Fresh ginger</div><div class="shop-item-qty">1 piece</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Frozen edamame</div><div class="shop-item-qty">200g bag</div></div>
-  </div>
-
-  <div class="shop-category">
-    <div class="shop-cat-title">🫙 Pantry</div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Chia seeds</div><div class="shop-item-qty">small bag</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Olive oil</div><div class="shop-item-qty">bottle</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Low-sodium soy sauce</div><div class="shop-item-qty">bottle</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Sesame oil</div><div class="shop-item-qty">small bottle</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Honey</div><div class="shop-item-qty">jar</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Chilli flakes</div><div class="shop-item-qty">jar</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Paprika</div><div class="shop-item-qty">jar</div></div>
-  </div>
-
-  <div class="shop-category">
-    <div class="shop-cat-title">🍋 Fruit</div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Lemons</div><div class="shop-item-qty">3</div></div>
-    <div class="shop-item" onclick="toggleShop(this)"><div class="shop-checkbox"></div><div class="shop-item-text">Blueberries</div><div class="shop-item-qty">small punnet</div></div>
-  </div>
-</div>
+</div><!-- end week2 -->
 
 <script>
-  const TABS = ['mon','tue','wed','thu','fri','shop'];
+  const DAYS = ['mon','tue','wed','thu','fri','shop'];
+  let currentWeek = 1;
+  let currentTab = 'mon';
+
+  function switchWeek(n, btn) {
+    currentWeek = n;
+    document.getElementById('week1').classList.toggle('active', n === 1);
+    document.getElementById('week2').classList.toggle('active', n === 2);
+    document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Show current tab in new week
+    showTab(currentTab);
+    try { localStorage.setItem('meal_week', n); } catch(e) {}
+  }
 
   function switchTab(id, btn) {
-    TABS.forEach(t => {
-      document.getElementById('tab-' + t).classList.remove('active');
-    });
+    currentTab = id;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + id).classList.add('active');
     btn.classList.add('active');
+    showTab(id);
     try { localStorage.setItem('meal_tab', id); } catch(e) {}
+  }
+
+  function showTab(id) {
+    // Hide all pages in both weeks
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const el = document.getElementById('w' + currentWeek + '-tab-' + id);
+    if (el) el.classList.add('active');
   }
 
   function toggleCard(card) {
     card.classList.toggle('open');
   }
 
-  function toggleShop(item) {
+  function toggleShop(item, week) {
     item.classList.toggle('checked');
-    saveShop();
+    saveShop(week);
   }
 
-  function saveShop() {
+  function saveShop(week) {
     try {
-      const state = Array.from(document.querySelectorAll('.shop-item')).map(i => i.classList.contains('checked'));
-      localStorage.setItem('shop_checked', JSON.stringify(state));
+      const panel = document.getElementById('week' + (week === 'w1' ? '1' : '2'));
+      const items = panel.querySelectorAll('.shop-item');
+      const state = Array.from(items).map(i => i.classList.contains('checked'));
+      localStorage.setItem('shop_' + week, JSON.stringify(state));
     } catch(e) {}
   }
 
-  function resetShop() {
-    document.querySelectorAll('.shop-item').forEach(i => i.classList.remove('checked'));
-    try { localStorage.removeItem('shop_checked'); } catch(e) {}
+  function resetShop(week) {
+    const panel = document.getElementById('week' + (week === 'w1' ? '1' : '2'));
+    panel.querySelectorAll('.shop-item').forEach(i => i.classList.remove('checked'));
+    try { localStorage.removeItem('shop_' + week); } catch(e) {}
   }
 
-  // Restore on load
+  // Restore state on load
   try {
-    const tab = localStorage.getItem('meal_tab');
-    if (tab && TABS.includes(tab)) {
-      TABS.forEach(t => document.getElementById('tab-' + t).classList.remove('active'));
+    const savedWeek = parseInt(localStorage.getItem('meal_week') || '1');
+    const savedTab = localStorage.getItem('meal_tab') || 'mon';
+
+    if (savedWeek === 2) {
+      currentWeek = 2;
+      document.getElementById('week1').classList.remove('active');
+      document.getElementById('week2').classList.add('active');
+      document.querySelectorAll('.week-btn')[0].classList.remove('active');
+      document.querySelectorAll('.week-btn')[1].classList.add('active');
+    }
+
+    if (DAYS.includes(savedTab)) {
+      currentTab = savedTab;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('tab-' + tab).classList.add('active');
-      const btn = document.querySelector(`.tab-btn[onclick="switchTab('${tab}',this)"]`);
+      const btn = document.querySelector(`.tab-btn[onclick="switchTab('${savedTab}',this)"]`);
       if (btn) btn.classList.add('active');
+      showTab(savedTab);
     }
-    const shopState = JSON.parse(localStorage.getItem('shop_checked') || 'null');
-    if (shopState) {
-      const items = document.querySelectorAll('.shop-item');
-      shopState.forEach((checked, i) => { if (checked && items[i]) items[i].classList.add('checked'); });
-    }
+
+    // Restore shop checks
+    ['w1','w2'].forEach(week => {
+      const state = JSON.parse(localStorage.getItem('shop_' + week) || 'null');
+      if (!state) return;
+      const panel = document.getElementById('week' + (week === 'w1' ? '1' : '2'));
+      const items = panel.querySelectorAll('.shop-item');
+      state.forEach((checked, i) => { if (checked && items[i]) items[i].classList.add('checked'); });
+    });
   } catch(e) {}
 </script>
