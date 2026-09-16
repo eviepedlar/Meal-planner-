@@ -1,0 +1,11 @@
+{
+  "name": "Meal Plan",
+  "short_name": "Meal Plan",
+  "description": "Evie's weekly meal plan",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#edf4f0",
+  "theme_color": "#1c3530",
+  "orientation": "portrait",
+  "icons": []
+}
