@@ -4,8 +4,8 @@
   "description": "Evie's weekly meal plan",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fdf8f2",
-  "theme_color": "#f0e6d3",
+  "background_color": "#fdf9f5",
+  "theme_color": "#f5ede3",
   "orientation": "portrait",
   "icons": []
 }
