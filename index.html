@@ -3,25 +3,25 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Meal Plan" />
-<meta name="theme-color" content="#f5ede3" />
+<meta name="theme-color" content="#faf7f2" />
 <link rel="manifest" href="/manifest.json" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap">
 
 <style>
   :root {
-    --bg: #fdf9f5;
+    --bg: #fefcf8;
     --surface: #ffffff;
-    --surface2: #f8f3ee;
-    --sage: #7a9e8a;
-    --sage-mid: #9ab8a6;
-    --sage-light: #e8f2ec;
-    --header-bg: #f5ede3;
-    --header-text: #3a2e20;
-    --amber: #c07840;
-    --amber-light: #faeadb;
-    --text: #3a2e20;
-    --text-muted: #9a8878;
-    --border: #ecddd0;
+    --surface2: #faf7f2;
+    --accent: #b07d62;
+    --accent-mid: #c49478;
+    --accent-light: #f5ede6;
+    --header-bg: #faf7f2;
+    --header-text: #2c2218;
+    --amber: #b07d62;
+    --amber-light: #f5ede6;
+    --text: #2c2218;
+    --text-muted: #8c7a6a;
+    --border: #e8ddd4;
     --header-h: 64px;
     --nav-h: 44px;
     --week-h: 46px;
@@ -29,36 +29,36 @@
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #1e1a16;
-      --surface: #28221c;
-      --surface2: #2e2820;
-      --sage: #7a9e8a;
-      --sage-mid: #5a8070;
-      --sage-light: #1e2e28;
-      --header-bg: #28201a;
-      --header-text: #e8d8c8;
-      --amber: #d08040;
-      --amber-light: #2d1f10;
-      --text: #e8d8c8;
-      --text-muted: #a89888;
-      --border: #3a3028;
+      --bg: #1c1814;
+      --surface: #252018;
+      --surface2: #2a231a;
+      --accent: #c4987a;
+      --accent-mid: #a87858;
+      --accent-light: #2e221a;
+      --header-bg: #211c14;
+      --header-text: #ede0d0;
+      --amber: #c4987a;
+      --amber-light: #2e221a;
+      --text: #ede0d0;
+      --text-muted: #a89070;
+      --border: #38301e;
     }
   }
 
   :root[data-theme="dark"] {
-    --bg: #1e1a16;
-    --surface: #28221c;
-    --surface2: #2e2820;
-    --sage: #7a9e8a;
-    --sage-mid: #5a8070;
-    --sage-light: #1e2e28;
-    --header-bg: #28201a;
-    --header-text: #e8d8c8;
-    --amber: #d08040;
-    --amber-light: #2d1f10;
-    --text: #e8d8c8;
-    --text-muted: #a89888;
-    --border: #3a3028;
+    --bg: #1c1814;
+    --surface: #252018;
+    --surface2: #2a231a;
+    --accent: #c4987a;
+    --accent-mid: #a87858;
+    --accent-light: #2e221a;
+    --header-bg: #211c14;
+    --header-text: #ede0d0;
+    --amber: #c4987a;
+    --amber-light: #2e221a;
+    --text: #ede0d0;
+    --text-muted: #a89070;
+    --border: #38301e;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -134,8 +134,8 @@
     text-align: center;
   }
   .week-btn.active {
-    background: var(--sage);
-    border-color: var(--sage);
+    background: var(--accent);
+    border-color: var(--accent);
     color: #fff;
     font-weight: 600;
   }
@@ -169,9 +169,9 @@
     white-space: nowrap;
     transition: color 0.15s, border-color 0.15s;
   }
-  .tab-btn.active { color: var(--sage); border-bottom-color: var(--sage); font-weight: 600; }
-  .tab-btn.shop-tab { color: var(--amber); }
-  .tab-btn.shop-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .tab-btn.shop-tab { color: var(--accent); }
+  .tab-btn.shop-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
   /* Pages */
   .week-panel { display: none; }
@@ -197,7 +197,7 @@
 
   /* Day totals */
   .day-totals {
-    background: var(--sage-light);
+    background: var(--accent-light);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 11px 16px;
@@ -209,7 +209,7 @@
   .total-val {
     font-family: 'DM Serif Display', serif;
     font-size: 19px;
-    color: var(--sage);
+    color: var(--accent);
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
@@ -236,8 +236,8 @@
     gap: 6px;
   }
   .prep-tag {
-    background: var(--sage-light);
-    color: var(--sage);
+    background: var(--accent-light);
+    color: var(--accent);
     font-size: 9px;
     padding: 1px 6px;
     border-radius: 99px;
@@ -290,8 +290,8 @@
     padding: 2px 8px;
     border-radius: 99px;
   }
-  .macro-chip.protein { background: var(--amber-light); color: var(--amber); }
-  .macro-chip.kcal { background: var(--sage-light); color: var(--sage); }
+  .macro-chip.protein { background: var(--accent-light); color: var(--accent); }
+  .macro-chip.kcal { background: var(--surface2); color: var(--text-muted); }
 
   .expand-chevron {
     flex-shrink: 0;
@@ -333,7 +333,7 @@
   .ingredient-qty {
     font-size: 12px;
     font-weight: 600;
-    color: var(--sage);
+    color: var(--accent);
     min-width: 58px;
     flex-shrink: 0;
     font-variant-numeric: tabular-nums;
@@ -341,8 +341,8 @@
   .ingredient-name { color: var(--text); flex: 1; }
   .gut-tag {
     font-size: 10px;
-    background: var(--sage-light);
-    color: var(--sage);
+    background: var(--accent-light);
+    color: var(--accent);
     padding: 1px 5px;
     border-radius: 4px;
     font-weight: 600;
@@ -368,7 +368,7 @@
     flex-shrink: 0;
     width: 20px; height: 20px;
     border-radius: 50%;
-    background: var(--sage);
+    background: var(--accent);
     color: #fff;
     font-size: 10.5px;
     font-weight: 700;
@@ -417,7 +417,7 @@
     flex-shrink: 0; display: flex; align-items: center; justify-content: center;
     transition: all 0.15s; background: var(--surface);
   }
-  .shop-item.checked .shop-checkbox { background: var(--sage); border-color: var(--sage); }
+  .shop-item.checked .shop-checkbox { background: var(--accent); border-color: var(--accent); }
   .shop-item.checked .shop-checkbox::after {
     content: ''; width: 10px; height: 6px;
     border-left: 2px solid white; border-bottom: 2px solid white;
